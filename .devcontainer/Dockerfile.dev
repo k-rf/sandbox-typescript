@@ -43,15 +43,14 @@ RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhisto
 
 # ローカルにパッケージのインストール
 # ------------------------------------------------------------------------------
+USER ${REMOTE_USER}
 RUN curl -fsSL https://get.pnpm.io/install.sh | env SHELL=bash sh -
 RUN curl -fsSL https://bun.sh/install | bash
-
-# プロンプトのカスタマイズ
-# ------------------------------------------------------------------------------
 RUN sh -c "$(curl -fsSL https://starship.rs/install.sh)" -- --yes \
   && echo 'eval "$(starship init bash)"' >> ${REMOTE_HOME}/.bashrc
 
-USER ${REMOTE_USER}
+# プロンプトのカスタマイズ
+# ------------------------------------------------------------------------------
 RUN mkdir -p ${REMOTE_HOME}/.config \
   && { \
   echo '[time]'; \
