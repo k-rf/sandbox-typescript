@@ -83,11 +83,7 @@ const tsRules = {
     ...pluginCspell.configs["recommended"].rules,
     ...pluginPrettier.rules,
 
-    "object-shorthand": [
-      "error",
-      "always",
-      { ignoreConstructors: false, avoidQuotes: true },
-    ],
+    "object-shorthand": ["error", "never"],
 
     "@typescript-eslint/no-unused-vars": [
       "error",
