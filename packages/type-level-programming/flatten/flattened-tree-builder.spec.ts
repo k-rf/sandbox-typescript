@@ -75,6 +75,32 @@ describe("flattenedTreeBuilder", () => {
       // @ts-expect-error 引数の値 (`level`) が適用されている
       result?.depth;
     });
+
+    it("オブジェクトの型を事前に定義する", () => {
+      const { item, flattenedTree } = flattenedTreeBuilder();
+
+      const [result] = flattenedTree(
+        item({ id: "B", name: "書籍", page: 420 })(
+          // @ts-expect-error この実装ではこのエラーに対応できない（と思われる）
+          item({ id: "B1", name: "1章" })(
+            item({ id: "B1.1", name: "1.1節" })()
+          ),
+          item({ id: "B2", name: "2章" })(
+            item({ id: "B2.1", name: "2.1節" })(
+              item({ id: "B2.1.1", name: "2.1.1項" })(),
+              item({ id: "B2.1.2", name: "2.1.2項" })()
+            ),
+            item({ id: "B2.2", name: "2.2節" })()
+          )
+        )
+      );
+
+      result?.id;
+      result?.name;
+      result?.parentId;
+      result?.depth;
+      result?.page;
+    });
   });
 
   describe("ふるまいのテスト", () => {

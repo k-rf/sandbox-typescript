@@ -35,7 +35,9 @@ type FlattenedTreeBuilderFnReturnType<
   item: ReturnType<typeof item<P, D>>;
 };
 
+// NOTE: `T` を型引数として受け取るようにしたいが、型レベルだと `item<P, D>(parentKey, depthKey)<T>` に相当する書き方ができない。
 export const flattenedTreeBuilder: FlattenedTreeBuilderFn = <
+  T extends ItemProps,
   P extends PropertyKey = "parentId",
   D extends PropertyKey = "depth",
 >(
@@ -43,8 +45,8 @@ export const flattenedTreeBuilder: FlattenedTreeBuilderFn = <
   depthKey?: D
 ) => {
   return {
-    flattenedTree: flattenedTree,
-    item: item<P, D>(parentKey, depthKey),
+    flattenedTree: flattenedTree<T>,
+    item: item<P, D>(parentKey, depthKey)<T>,
   };
 };
 
