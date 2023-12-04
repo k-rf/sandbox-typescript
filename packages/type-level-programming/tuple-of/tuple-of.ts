@@ -3,12 +3,12 @@ import { range } from "remeda";
 type TupleOf<
   T,
   N extends number,
-  Acc extends T[] = [],
+  Acc extends readonly T[] = readonly [],
 > = `${N}` extends `-${number}`
-  ? []
+  ? readonly []
   : Acc["length"] extends N
   ? Acc
-  : TupleOf<T, N, [...Acc, T]>;
+  : TupleOf<T, N, readonly [...Acc, T]>;
 
 type TupleRangeFn = {
   <N extends number>(length: N): TupleOf<number, N>;
