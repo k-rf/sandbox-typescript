@@ -4,7 +4,11 @@ type TupleOf<
   T,
   N extends number,
   Acc extends T[] = [],
-> = Acc["length"] extends N ? Acc : TupleOf<T, N, [...Acc, T]>;
+> = `${N}` extends `-${number}`
+  ? []
+  : Acc["length"] extends N
+  ? Acc
+  : TupleOf<T, N, [...Acc, T]>;
 
 export const tupleRange = <T, N extends number>(
   length: N,

@@ -12,13 +12,19 @@ describe("tupleRange", () => {
   });
 
   it("`mapper` を渡すと、値をマッピングする", () => {
-    const result = tupleRange(4, (index) => `Item ${index}`);
-    expect(result).toEqual(["Item 0", "Item 1", "Item 2", "Item 3"]);
+    const result = tupleRange(4, (index) => ({
+      id: index,
+      name: `Name ${index}`,
+    }));
+    expect(result).toEqual([
+      { id: 0, name: "Name 0" },
+      { id: 1, name: "Name 1" },
+      { id: 2, name: "Name 2" },
+      { id: 3, name: "Name 3" },
+    ]);
   });
 
   it("-1 を渡すと、空のタプルを返す", () => {
-    // @ts-expect-error ふるまいとしては OK だが型レベルでエラーになる
-    // TODO: 負の値に対応する
     const result = tupleRange(-1);
     expect(result).toEqual([]);
   });
