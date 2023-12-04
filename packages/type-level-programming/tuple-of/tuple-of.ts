@@ -1,4 +1,4 @@
-import { range } from "fp-ts/lib/NonEmptyArray";
+import { range } from "remeda";
 
 type TupleOf<
   T,
@@ -10,13 +10,16 @@ type TupleOf<
   ? Acc
   : TupleOf<T, N, [...Acc, T]>;
 
-export const tupleRange = <T, N extends number>(
+type TupleRangeFn = {
+  <N extends number>(length: N): TupleOf<number, N>;
+  <T, N extends number>(length: N, mapper: (index: number) => T): TupleOf<T, N>;
+};
+
+export const tupleRange: TupleRangeFn = <T, N extends number>(
   length: N,
   mapper?: (index: number) => T
-): TupleOf<T, N> => {
-  if (length <= 0) return [] as TupleOf<T, N>;
-
-  return range(0, length - 1).map((...[, i]) =>
+) => {
+  return range(0, length).map((...[, i]) =>
     mapper ? mapper(i) : i
   ) as TupleOf<T, N>;
 };
