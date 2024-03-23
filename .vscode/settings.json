@@ -2,7 +2,7 @@
   "editor.formatOnSaveMode": "file",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": "explicit"
   },
   "files.trimFinalNewlines": true,
   "files.insertFinalNewline": true,
